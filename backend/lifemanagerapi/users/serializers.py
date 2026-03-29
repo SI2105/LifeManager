@@ -28,6 +28,15 @@ class MeSerializer(serializers.ModelSerializer):
         fields = ["id", "email", "first_name", "last_name"]
         read_only_fields = ["id", "email"]
 
+# Response Serializer to allow better documenting for responses
+class AuthTokensSerializer(serializers.Serializer):
+    access = serializers.CharField(read_only=True)
+    refresh = serializers.CharField(read_only=True)
+
+# Response Serializer to allow better documenting for responses
+class AuthSuccessSerializer(AuthTokensSerializer):
+    user = MeSerializer(read_only=True)
+
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
