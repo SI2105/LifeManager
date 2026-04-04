@@ -3,7 +3,7 @@ from rest_framework import serializers
 
 from .models import Category, RecurrenceType, Task, TaskStatus
 
-
+#Sets allowed transitions based manually based on a given status. More statuses are not expected, so setting these here is fine. If new status are added, this is prime candidate for redesign to something more extensible. 
 ALLOWED_STATUS_TRANSITIONS = {
     TaskStatus.TODO: {TaskStatus.IN_PROGRESS, TaskStatus.DONE, TaskStatus.ARCHIVED},
     TaskStatus.IN_PROGRESS: {TaskStatus.DONE, TaskStatus.ARCHIVED},
@@ -63,6 +63,7 @@ class TaskDetailSerializer(serializers.ModelSerializer):
         read_only_fields = ["id", "completed_at", "created_at", "updated_at"]
 
     def _require_owned_relation(self, relation, field_name):
+        # Reject cross-user foreign key references for related objects.
         request = self.context.get("request")
         if relation and request and relation.user_id != request.user.id:
             raise serializers.ValidationError(
