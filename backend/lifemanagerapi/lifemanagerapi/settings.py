@@ -30,8 +30,11 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']  # In production, replace with specific domain names
 
+
+ALLOWED_HOSTS = ['*']  # In production, replace with specific domain names - https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts - 
+# FUTURE REMINDER FOR DEV: Above is diffent from the CORS_allowed_origin, this is a whitelist for where the Django knows it can serve this backend app - see this explanation from stackoverflow: https://stackoverflow.com/a/47229671
+#DEBUG = True means that ALLOWED_HOSTS is validated against following:  ['.localhost', '127.0.0.1', '[::1]'].
 
 # Application definition
 
@@ -149,7 +152,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 20, #Start value, potentially change based on performance testing
 }
 
-# CORS Configuration
+# CORS Configuration - https://www.django-rest-framework.org/topics/ajax-csrf-cors/#csrf-protection
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:3001",
