@@ -62,12 +62,12 @@ class Task(models.Model):
 	priority = models.CharField(
 		max_length=20,
 		choices=TaskPriority.choices,
-		default=TaskPriority.MEDIUM,
+		default=TaskPriority.MEDIUM, #MEDIUM default priority
 	)
 	status = models.CharField(
 		max_length=20,
 		choices=TaskStatus.choices,
-		default=TaskStatus.TODO,
+		default=TaskStatus.TODO, #TODO default status
 	)
 	category = models.ForeignKey(
 		Category,
