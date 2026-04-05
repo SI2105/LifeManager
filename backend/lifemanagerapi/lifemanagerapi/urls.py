@@ -32,8 +32,8 @@ urlpatterns = [
       path("admin/", admin.site.urls),
     path("api/v1/", include(router.urls)), #
     path("api/v1/auth/", include("users.urls")),
-    path("api/v1/", include("tasks.urls")),
-    path("api-auth/", include("rest_framework.urls", namespace="rest_framework")), #Browsable API login
+    path("api/v1/tasks", include("tasks.urls")),
+    path("api/v1/", include("rest_framework.urls", namespace="rest_framework")), #Browsable API login adds: /login /register
     path('api/v1/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/v1/docs/swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/v1/docs/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
