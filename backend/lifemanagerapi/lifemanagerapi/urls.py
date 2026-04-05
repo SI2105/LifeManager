@@ -19,20 +19,22 @@ from django.urls import include, path
 from rest_framework import routers
 
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
+from tasks.views import CategoryViewSet, TaskViewSet
 
-from users import views
+from users import views as user_views
 
 router = routers.DefaultRouter()
-router.register(r"users", views.UserViewSet)
-router.register(r"groups", views.GroupViewSet)
+router.register(r"users", user_views.UserViewSet)
+router.register(r"groups", user_views.GroupViewSet)
+router.register(r"tasks", TaskViewSet, basename="task")
+router.register(r"categories", CategoryViewSet, basename="category")
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-      path("admin/", admin.site.urls),
-    path("api/v1/", include(router.urls)), #
+    path("admin/", admin.site.urls),
+    path("api/v1/", include(router.urls)),
     path("api/v1/auth/", include("users.urls")),
-    path("api/v1/tasks", include("tasks.urls")),
     path("api/v1/", include("rest_framework.urls", namespace="rest_framework")), #Browsable API login adds: /login /register
     path('api/v1/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/v1/docs/swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
